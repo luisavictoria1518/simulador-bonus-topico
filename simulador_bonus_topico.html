@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tópico - Simulador de Bônus</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #1a1a1a;
+      padding: 40px;
+      border-radius: 18px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.5);
+      width: 400px;
+      text-align: center;
+      border: 1px solid #f97316;
+    }
+
+    h1 {
+      font-size: 1.7em;
+      margin-bottom: 25px;
+      color: #f97316;
+      font-weight: 700;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: 500;
+      text-align: left;
+      color: #e2e8f0;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background-color: #0f0f0f;
+      color: #fff;
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #f97316;
+      outline: none;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #f97316;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #fb923c;
+      transform: scale(1.02);
+    }
+
+    .resultado {
+      margin-top: 25px;
+      font-size: 1.4em;
+      font-weight: 600;
+      color: #f97316;
+      background: #0f0f0f;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #f97316;
+    }
+
+    .info {
+      margin-top: 20px;
+      font-size: 0.85em;
+      color: #a1a1aa;
+      line-height: 1.5em;
+    }
+
+    .logo {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: #f97316;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">TÓPICO</div>
+    <h1>Simulador de Bônus</h1>
+
+    <label for="eficiencia">Eficiência da OS (%)</label>
+    <input type="number" id="eficiencia" placeholder="Ex: 110" />
+
+    <label for="tempo">Tempo Programado (dias)</label>
+    <input type="number" id="tempo" placeholder="Ex: 20" />
+
+    <button onclick="calcularBonus()">Calcular Bônus</button>
+
+    <div id="resultado" class="resultado">R$ 0,00</div>
+
+    <div class="info">
+      *Fórmula: (t / 132) × 1801 × (5 × (ef / 100) − 4)<br>
+      Dias úteis e coeficiente são fixos (132 e 1801)<br>
+      Período de apuração: 6 meses
+    </div>
+  </div>
+
+  <script>
+    function calcularBonus() {
+      const ef = parseFloat(document.getElementById('eficiencia').value);
+      const t = parseFloat(document.getElementById('tempo').value);
+
+      if (isNaN(ef) || isNaN(t)) {
+        alert('Por favor, preencha todos os campos corretamente.');
+        return;
+      }
+
+      const d = 132;
+      const c = 1801;
+
+      const bonus = (t / d) * c * (5 * (ef / 100) - 4);
+      const resultado = document.getElementById('resultado');
+
+      resultado.textContent = "R$ " + bonus.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+  </script>
+</body>
+</html>
